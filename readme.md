@@ -11,7 +11,7 @@
 ### Setup:
 
 - Install [tslab](https://github.com/yunabe/tslab)
-- `npm i tslab-widgets`
+- `npm i -S tslab tslab-widgets` and `npm i -D lightweight-charts tslib`
 
 ### Widget list:
 
