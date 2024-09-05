@@ -20,7 +20,7 @@
 - Gauge
 - JSON
 
-Review the [example jupyter notebook](https://github.com/rodrigopivi/tslab-widgets/blob/main/exampmle.ipynb).
+Review the [example jupyter notebook](https://github.com/rodrigopivi/tslab-widgets/blob/main/example.ipynb).
 
 ### Author
 
