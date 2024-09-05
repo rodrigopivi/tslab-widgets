@@ -1,0 +1,14 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false,
+  "cSpell.words": [
+    "BTCUSD",
+    "Deadzone",
+    "ipynb",
+    "tslab"
+  ]
+}

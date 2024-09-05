@@ -1,0 +1,10 @@
+src
+tsconfig.json
+.prettierrc
+.prettierignore
+.nvmrc
+.npmrc
+.eslintrc.json
+.editorconfig
+.vscode
+*.ipynb
