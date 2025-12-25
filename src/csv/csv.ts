@@ -1,12 +1,14 @@
-import * as tslab from 'tslab';
+import * as tslab from "tslab";
+
+import { CDN_URLS } from "../config/versions";
 
 // https://github.com/marudhupandiyang/react-csv-to-table
 function csv(
-  data: string[],
-  options?: { customCss?: string; maxHeight?: number },
+	data: string[],
+	options?: { customCss?: string; maxHeight?: number },
 ) {
-  const reactComponentId = `_csv_widget${Math.random().toString(36).substring(2, 9)}`;
-  const html = `
+	const reactComponentId = `_csv_widget${Math.random().toString(36).substring(2, 9)}`;
+	const html = `
     <style type="text/css">
       table.widget-csv-table {
         margin: auto !important;
@@ -23,19 +25,19 @@ function csv(
           }
         }
       }
-      ${options?.customCss || ''}
+      ${options?.customCss || ""}
     </style>
     <div id="${reactComponentId}" style="margin:auto;" />
     <script type="module">
-      import React from "https://esm.sh/react@18.3.1";
-      import ReactDOM from "https://esm.sh/react-dom@18.3.1";
-      import { CsvToHtmlTable } from "https://esm.sh/react-csv-to-table@0.0.4";
+      import React from "${CDN_URLS.react}";
+      import ReactDOM from "${CDN_URLS.reactDom}";
+      import { CsvToHtmlTable } from "${CDN_URLS.reactCsvToTable}";
       const h = React.createElement;
 
       const reactJupyterLabComponentId = "${reactComponentId}";
       const jupyterLabReactComponentContainer = document.getElementById("${reactComponentId}");
 
-      const data = [${data.map((d) => JSON.stringify(d)).join(',')}];
+      const data = [${data.map((d) => JSON.stringify(d)).join(",")}];
       const csvWidgets = groupArrayIntoPairs(data);
       const rows = csvWidgets.map((rowDataPair, idx) => {
         const cid1 = reactJupyterLabComponentId + '-0';
@@ -44,7 +46,7 @@ function csv(
           display: 'flex',
           flexDirection: 'column',
           alignSelf: 'baseline',
-          ${options?.maxHeight ? `maxHeight:${options.maxHeight},overflowY: "scroll"` : ''}
+          ${options?.maxHeight ? `maxHeight:${options.maxHeight},overflowY: "scroll"` : ""}
         };
         const key = 'row-' + idx;
         return (
@@ -78,7 +80,7 @@ function csv(
     
     </script>
   `;
-  tslab.display.html(html);
+	tslab.display.html(html);
 }
 
 export { csv };

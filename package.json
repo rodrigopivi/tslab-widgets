@@ -1,17 +1,29 @@
 {
   "name": "tslab-widgets",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A set of widgets for ts-lab environment including financial charts",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "npx tsc",
-    "lint": "npx eslint",
-    "reset": "rm -rf node_modules && rm -rf dist && npm install"
+    "build": "rm -rf dist && npx tsc",
+    "prebuild": "npm run validate",
+    "validate": "tsx scripts/validate-versions.ts",
+    "reset": "rm -rf node_modules && rm -rf dist && npm install",
+    "format": "npx @biomejs/biome format --write",
+    "lint": "npx @biomejs/biome lint --write",
+    "check": "npx @biomejs/biome check --write"
   },
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts",
   "keywords": [
     "tslab",
     "jupyter",
@@ -42,31 +54,34 @@
   "homepage": "https://github.com/rodrigopivi/tslab-widgets#readme",
   "private": false,
   "dependencies": {
-    "tslab": "1.0.22"
+    "tslab": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.25.2",
-    "@babel/preset-react": "7.24.7",
-    "@types/node": "22.4.1",
-    "@types/react": "18.3.4",
-    "@typescript-eslint/eslint-plugin": "7.16.0",
-    "@typescript-eslint/parser": "7.16.0",
-    "cspell": "8.14.2",
-    "eslint": "8.57.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-deprecation": "3.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-perfectionist": "2.11.0",
-    "eslint-plugin-react": "7.35.0",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unicorn": "54.0.0",
-    "eslint-plugin-unused-imports": "3.2.0",
-    "lightweight-charts": "4.2.0",
-    "prettier": "3.3.3",
-    "react": "18.3.1",
-    "tslib": "2.6.3",
-    "typescript": "5.5.4",
-    "webpack-cli": "5.1.4"
+    "@babel/core": "7.28.5",
+    "@babel/preset-react": "7.28.5",
+    "@biomejs/biome": "2.3.10",
+    "@types/node": "25.0.3",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "cspell": "9.4.0",
+    "lightweight-charts": "5.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tslib": "2.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "5.9.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "tslab": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
   }
 }

@@ -1,19 +1,21 @@
-import * as tslab from 'tslab';
+import * as tslab from "tslab";
+
+import { CDN_URLS } from "../config/versions";
 
 // https://www.npmjs.com/package/react-gauge-chart
 function gauge(
-  width = 200,
-  props: {
-    colors?: string[];
-    legend?: string;
-    nrOfLevels?: number;
-    percent: number;
-    score?: string;
-    title?: string;
-  },
+	width = 200,
+	props: {
+		colors?: string[];
+		legend?: string;
+		nrOfLevels?: number;
+		percent: number;
+		score?: string;
+		title?: string;
+	},
 ) {
-  const reactComponentId = `_gauge_widget${Math.random().toString(36).substring(2, 9)}`;
-  const html = `
+	const reactComponentId = `_gauge_widget${Math.random().toString(36).substring(2, 9)}`;
+	const html = `
     <div id="${reactComponentId}"></div>
     <style type="text/css">
       g.text-group {
@@ -21,9 +23,9 @@ function gauge(
       }
     </style>
     <script type="module">
-      import React from "https://esm.sh/react@18.3.1";
-      import ReactDOM from "https://esm.sh/react-dom@18.3.1";
-      import GaugeChart from "https://esm.sh/react-gauge-chart@0.5.1";
+      import React from "${CDN_URLS.react}";
+      import ReactDOM from "${CDN_URLS.reactDom}";
+      import GaugeChart from "${CDN_URLS.reactGaugeChart}";
       const h = React.createElement;
 
       const reactJupyterLabComponentId = "${reactComponentId}";
@@ -45,12 +47,12 @@ function gauge(
       };
       ReactDOM.render(
         h('div', { style: styles.wrapper }, [
-          h('div', { style: styles.title }, '${props.title ?? ''}'),
+          h('div', { style: styles.title }, '${props.title ?? ""}'),
           h(GaugeChart, {
             id: 'rg-${reactComponentId}',
             colors: ['#D10363', '#4CCD99'],
             needleColor: '#888',
-            ${props.score ? `formatTextValue: value => '${props.score}',` : ''}
+            ${props.score ? `formatTextValue: value => '${props.score}',` : ""}
             ...props,
           }),
           h('div', { style: styles.legend }, '${props.legend}'),
@@ -60,7 +62,7 @@ function gauge(
 
     </script>
   `;
-  tslab.display.html(html);
+	tslab.display.html(html);
 }
 
 export { gauge };
