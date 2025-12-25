@@ -19,10 +19,7 @@
 ### Setup:
 
 - Install [tslab](https://github.com/yunabe/tslab)
-- `npm i -S tslab tslab-widgets`
-- Optional dev dependencies: `npm i -D lightweight-charts tslib react react-dom`
-- `npm install -g tslab`
-- `npm i -S tslab tslab-widgets`
+- `npm i -S tslab tslab-widgets tslib lightweight-charts`
 
 ### Widget list:
 
@@ -45,30 +42,15 @@ tslab-widgets uses a **CDN-based approach** for runtime dependencies (React, lig
 - ✅ **Smaller package size** - No need to bundle React into the library
 - ✅ **Centralized version management** - All CDN versions managed in `src/config/versions.ts`
 
-### For Contributors: Updating CDN Versions
-
-```typescript
-// Edit src/config/versions.ts
-export const CDN_VERSIONS = {
-  react: "19.0.0", // Update version here
-  reactDom: "19.0.0",
-  lightweightCharts: "5.1.0",
-  // ...
-};
-```
-
-Then update corresponding versions in package.json devDependencies and run:
-
-```bash
-npm run validate  # Ensures versions match
-npm run build
-```
-
 ### Screenshots
 
 <img width="1242" alt="Screenshot 2024-09-05 at 12 36 37 PM" src="https://github.com/user-attachments/assets/ab9a258c-059e-4bae-ac5b-6c753e885e70">
 
 <img width="1025" alt="Screenshot 2024-09-05 at 12 37 29 PM" src="https://github.com/user-attachments/assets/1a8cd079-ae49-4cd4-b629-069cc7a0bb61">
+
+### Configure VSCode to use Typescript Kernel
+
+Go to `Select Kernel` -> `Jupyter Kernel...` -> `Typescript`
 
 ### Author
 
