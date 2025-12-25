@@ -8,19 +8,61 @@
 <hr />
 <br>
 
+## Features
+
+✨ **Financial Charts** - Candlestick, line, area, bar charts with real-time sync
+📊 **Data Visualization** - CSV tables, JSON tree viewer, gauge charts
+🎯 **Chart Sync** - Automatic crosshair and time-scale synchronization across multiple charts
+🔧 **Type-Safe** - Full TypeScript support with comprehensive type definitions
+⚡ **Lightweight** - CDN-based dependencies for fast loading
+
 ### Setup:
 
 - Install [tslab](https://github.com/yunabe/tslab)
-- `npm i -S tslab tslab-widgets` and `npm i -D lightweight-charts tslib`
+- `npm i -S tslab tslab-widgets`
+- Optional dev dependencies: `npm i -D lightweight-charts tslib react react-dom`
+- `npm install -g tslab`
+- `npm i -S tslab tslab-widgets`
 
 ### Widget list:
 
-- Chart (thanks to `lightweight-charts`)
-- CSV
-- Gauge
-- JSON
+- **Chart** - Financial charts powered by `lightweight-charts` with plugins:
+  - Candlestick, Line, Area, Bar, Baseline, Histogram
+  - Tooltips, trend lines, volume profiles, vertical markers
+  - Multi-chart synchronization (crosshair + time scale)
+- **CSV** - Responsive table viewer with auto-pairing layout
+- **Gauge** - Circular progress/KPI indicators
+- **JSON** - Expandable tree view for objects
 
 Review the [example jupyter notebook](https://github.com/rodrigopivi/tslab-widgets/blob/main/example.ipynb).
+
+## CDN Strategy
+
+tslab-widgets uses a **CDN-based approach** for runtime dependencies (React, lightweight-charts, etc.). This means:
+
+- ✅ **No bundling overhead** - Dependencies loaded directly from esm.sh
+- ✅ **Faster notebook loading** - Browser caches shared dependencies
+- ✅ **Smaller package size** - No need to bundle React into the library
+- ✅ **Centralized version management** - All CDN versions managed in `src/config/versions.ts`
+
+### For Contributors: Updating CDN Versions
+
+```typescript
+// Edit src/config/versions.ts
+export const CDN_VERSIONS = {
+  react: "19.0.0", // Update version here
+  reactDom: "19.0.0",
+  lightweightCharts: "5.1.0",
+  // ...
+};
+```
+
+Then update corresponding versions in package.json devDependencies and run:
+
+```bash
+npm run validate  # Ensures versions match
+npm run build
+```
 
 ### Screenshots
 
