@@ -18,15 +18,17 @@ function json<T extends object>(opts: {
     <script type="module">
       import React from "${CDN_URLS.react}";
       import ReactDOM from "${CDN_URLS.reactDom}";
-      import ReactJsonTree from "${CDN_URLS.reactJsonTree}";
+      import {JSONTree} from "${CDN_URLS.reactJsonTree}";
 
       const reactJupyterLabComponentId = "${reactComponentId}";
       const jupyterLabReactComponentContainer = document.getElementById("${reactComponentId}");
       const args = JSON.parse('${JSON.stringify(opts.data)}');
-      ReactDOM.render(React.createElement(
-        ReactJsonTree,
+
+      const root = ReactDOM.createRoot(jupyterLabReactComponentContainer);
+      root.render(React.createElement(
+        JSONTree,
         { data: args },
-      ), jupyterLabReactComponentContainer);
+      ));
 
     </script>
   `;

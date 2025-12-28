@@ -3,18 +3,24 @@
 </center>
 
 <blockquote>
-  A set of widgets for tslab (the interactive programming environment on top of jupyter lab that supports typescript and javascript).
+  A library that brings rich, interactive data visualizations directly to Jupyter Notebooks through a TypeScript kernel bridging the gap between the expressive power of modern TypeScript charting libraries and the iterative, exploratory workflow of Jupyter.
 </blockquote>
 <hr />
 <br>
 
-## Features
+## Overview
 
-✨ **Financial Charts** - Candlestick, line, area, bar charts with real-time sync
-📊 **Data Visualization** - CSV tables, JSON tree viewer, gauge charts
-🎯 **Chart Sync** - Automatic crosshair and time-scale synchronization across multiple charts
-🔧 **Type-Safe** - Full TypeScript support with comprehensive type definitions
-⚡ **Lightweight** - CDN-based dependencies for fast loading
+🔧 **First-Class TypeScript Experience**: Designed specifically for TS kernels. Get full type checking, autocompletion (IntelliSense) for your chart configurations, and safe refactoring as you explore your data.
+
+📚 **Notebook-Native**: Visualizations render inline as notebook cell outputs. They are fully embedded in the document, making them ideal for creating reproducible analysis reports, interactive dashboards, and storytelling with data.
+
+🎯 **Leverage the TS Ecosystem**: Integrates with popular JavaScript visualization libraries.
+
+⚡ **Lightweight** - CDN-based dependencies for fast loading and no build step.
+
+📊 **Financial Charts** - Candlestick, line, area with crosshair and time-scale synchronization across multiple charts.
+
+✨ **Data Visualization** - Tables, charts, JSON tree viewer, gauge and more to come...
 
 ### Setup:
 
@@ -44,25 +50,6 @@ tslab-widgets uses a **CDN-based approach** for runtime dependencies (React, lig
 - ✅ **Faster notebook loading** - Browser caches shared dependencies
 - ✅ **Smaller package size** - No need to bundle React into the library
 - ✅ **Centralized version management** - All CDN versions managed in `src/config/versions.ts`
-
-### For Contributors: Updating CDN Versions
-
-```typescript
-// Edit src/config/versions.ts
-export const CDN_VERSIONS = {
-  react: "19.0.0", // Update version here
-  reactDom: "19.0.0",
-  lightweightCharts: "5.1.0",
-  // ...
-};
-```
-
-Then update corresponding versions in package.json devDependencies and run:
-
-```bash
-npm run validate  # Ensures versions match
-npm run build
-```
 
 ### Screenshots
 
