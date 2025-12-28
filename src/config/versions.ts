@@ -1,22 +1,12 @@
-/**
- * Centralized CDN version management for tslab-widgets
- *
- * All CDN dependency versions are managed here to ensure consistency
- * between package.json devDependencies and runtime CDN imports.
- *
- * When updating versions:
- * 1. Update the version in CDN_VERSIONS
- * 2. Update corresponding package.json devDependencies
- * 3. Run `npm run validate` to verify consistency
- */
-
 export const CDN_VERSIONS = {
-	react: "18.3.1",
-	reactDom: "18.3.1",
+	react: "19.2.3",
+	reactDom: "19.2.3",
 	lightweightCharts: "5.1.0",
-	reactCsvToTable: "0.0.4",
-	reactJsonTree: "0.15.0",
-	reactGaugeChart: "0.5.1",
+	reactJsonTree: "0.20.0",
+	recharts: "3.6.0",
+	agChartsReact: "13.0.0",
+	agGridReact: "35.0.0",
+	agGridCommunity: "35.0.0",
 } as const;
 
 export const CDN_PROVIDER = "https://esm.sh";
@@ -32,17 +22,27 @@ export function getCdnUrl(pkg: string, version: string): string {
  * Pre-built CDN URLs for all dependencies
  * Use these constants in widget HTML generation
  */
+const agGridCommunity = getCdnUrl(
+	"ag-grid-community",
+	CDN_VERSIONS.agGridCommunity,
+);
+
 export const CDN_URLS = {
 	react: getCdnUrl("react", CDN_VERSIONS.react),
-	reactDom: getCdnUrl("react-dom", CDN_VERSIONS.reactDom),
+	reactDom: `${getCdnUrl("react-dom", CDN_VERSIONS.reactDom)}/client`,
 	lightweightCharts: getCdnUrl(
 		"lightweight-charts",
 		CDN_VERSIONS.lightweightCharts,
 	),
-	reactCsvToTable: getCdnUrl(
-		"react-csv-to-table",
-		CDN_VERSIONS.reactCsvToTable,
-	),
 	reactJsonTree: getCdnUrl("react-json-tree", CDN_VERSIONS.reactJsonTree),
-	reactGaugeChart: getCdnUrl("react-gauge-chart", CDN_VERSIONS.reactGaugeChart),
+	recharts: getCdnUrl("recharts", CDN_VERSIONS.recharts),
+
+	// AG Grid dependencies
+	agGridReact: getCdnUrl("ag-grid-react", CDN_VERSIONS.agGridReact),
+	agGridCommunity,
+	agGridStyles: `${agGridCommunity}/styles/ag-grid.css`,
+	agGridThemeAlpine: `${agGridCommunity}/styles/ag-theme-alpine.css`,
+
+	// AG Charts dependencies
+	agChartsReact: getCdnUrl("ag-charts-react", CDN_VERSIONS.agChartsReact),
 } as const;

@@ -667,14 +667,11 @@ function chart(options: IChartOptions, chartsData: (IChartData | undefined)[]) {
 	const h = options.height ? `width:${height + 30}px;` : "";
 	const charts = chartsData.filter((c) => Boolean(c));
 	const html = `
-    <div
-      id="${componentId}"
-      style="${w}${h}">
-    </div>
+    <div id="${componentId}" style="${w}${h}" />
     <script type="module">
 
       import React, { useEffect, useRef } from '${CDN_URLS.react}';
-      import ReactDOM from '${CDN_URLS.reactDom}';
+      import ReactDOM from "${CDN_URLS.reactDom}";
       import { createChart, createSeriesMarkers, AreaSeries, BarSeries, BaselineSeries, CandlestickSeries, HistogramSeries, LineSeries } from '${CDN_URLS.lightweightCharts}';
 
       ${TL.TrendLinePaneRenderer.toString()}
@@ -700,10 +697,11 @@ function chart(options: IChartOptions, chartsData: (IChartData | undefined)[]) {
       const reactJupyterLabComponentId = '${componentId}';
       const jupyterLabReactComponentContainer = document.getElementById('${componentId}');
 
-      ReactDOM.render(React.createElement(
+      const root = ReactDOM.createRoot(jupyterLabReactComponentContainer);
+      root.render(React.createElement(
         ChartComponents,
         ${JSON.stringify({ charts, componentId, height, syncKey, width })},
-      ), jupyterLabReactComponentContainer);
+      ));
 
     </script>
   `;
