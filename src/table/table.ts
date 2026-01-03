@@ -4,11 +4,11 @@ import { CDN_URLS } from "../config/versions";
 
 type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
-function table(params: {
+function generateTableHtml(params: {
 	options: RequiredFields<GridOptions, "rowData">;
 	height?: number;
 	width?: number;
-}) {
+}): string {
 	const width = params.width || 550;
 	const height = params.height || 330;
 	const reactComponentId = `_table_widget${Math.random().toString(36).substring(2, 9)}`;
@@ -21,7 +21,7 @@ function table(params: {
 			(key) => ({ field: key, filter: true, sortable: true }),
 		);
 	}
-	const html = `
+	return `
     <div id="${reactComponentId}" />
 
     <link rel="stylesheet" href="${CDN_URLS.agGridStyles}" />
@@ -30,10 +30,10 @@ function table(params: {
     <script type="module">
       import React from "${CDN_URLS.react}";
       import ReactDOM from "${CDN_URLS.reactDom}";
-      
+
       import { AllCommunityModule, ModuleRegistry, themeBalham, colorSchemeDarkBlue } from "${CDN_URLS.agGridCommunity}";
       ModuleRegistry.registerModules([AllCommunityModule]);
-      
+
       import { AgGridReact } from "${CDN_URLS.agGridReact}";
 
       const h = React.createElement;
@@ -42,16 +42,33 @@ function table(params: {
       const options = JSON.parse('${JSON.stringify(params.options)}');
       const theme = themeBalham.withPart(colorSchemeDarkBlue);
       const gridOptions = { theme, ...options };
-      const root = ReactDOM.createRoot(jupyterLabReactComponentContainer);
-      root.render(
-        h('div', { style: { width: ${width}, height: ${height}, margin: 'auto' }}, [
-          h(AgGridReact, { gridOptions })
-        ])
-      );
+
+      if (jupyterLabReactComponentContainer) {
+        const root = ReactDOM.createRoot(jupyterLabReactComponentContainer);
+        root.render(
+          h('div', { style: { width: ${width}, height: ${height}, margin: 'auto' }}, [
+            h(AgGridReact, { gridOptions })
+          ])
+        );
+      }
 
     </script>
   `;
+}
+
+function table(params: {
+	options: RequiredFields<GridOptions, "rowData">;
+	height?: number;
+	width?: number;
+}): void {
+	const html = generateTableHtml(params);
 	tslab.display.html(html);
 }
+
+table.html = (params: {
+	options: RequiredFields<GridOptions, "rowData">;
+	height?: number;
+	width?: number;
+}): string => generateTableHtml(params);
 
 export { table };
