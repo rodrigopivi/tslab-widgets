@@ -1,15 +1,15 @@
 import * as tslab from "tslab";
 import { CDN_URLS } from "../config/versions";
 
-function gauge(params: {
+function generateGaugeHtml(params: {
 	sections?: { value: number; fill: string }[];
 	value?: number;
 	unit?: string;
 	title?: string;
 	size?: "S" | "M" | "L";
-}) {
+}): string {
 	const reactComponentId = `_gauge_widget${Math.random().toString(36).substring(2, 9)}`;
-	const html = `
+	return `
     <div id="${reactComponentId}" />
     <script type="module">
       import React from "${CDN_URLS.react}";
@@ -382,7 +382,6 @@ function gauge(params: {
       const root = ReactDOM.createRoot(jupyterLabReactComponentContainer);
 
       root.render(
-        h('div', {}, [
           h(GaugeWithNeedle, {
             sections: ${JSON.stringify(params.sections || undefined)},
             title: "${params.title}",
@@ -390,12 +389,29 @@ function gauge(params: {
             unit: "${params.unit}",
             size: "${params.size}",
           })
-        ])
       );
 
     </script>
   `;
+}
+
+function gauge(params: {
+	sections?: { value: number; fill: string }[];
+	value?: number;
+	unit?: string;
+	title?: string;
+	size?: "S" | "M" | "L";
+}): void {
+	const html = generateGaugeHtml(params);
 	tslab.display.html(html);
 }
+
+gauge.html = (params: {
+	sections?: { value: number; fill: string }[];
+	value?: number;
+	unit?: string;
+	title?: string;
+	size?: "S" | "M" | "L";
+}): string => generateGaugeHtml(params);
 
 export { gauge };

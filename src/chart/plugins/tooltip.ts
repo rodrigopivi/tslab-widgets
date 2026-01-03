@@ -99,7 +99,6 @@ export class TooltipCrosshairLinePaneRenderer
 	}
 }
 
-// Define CanvasRenderingTarget2D interface locally since we're not using fancy-canvas
 interface CanvasRenderingTarget2D {
 	useBitmapCoordinateSpace: (
 		scope: (context: {
@@ -149,24 +148,11 @@ export class TooltipElement {
 			"border-radius": "4px 4px 0px 0px",
 			"border-bottom": "none",
 			"margin-left": "8px",
-
-			// "box-shadow": "0 2px 5px 0 rgba(117, 134, 150, 0.45)",
 			"font-family":
 				"-apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif",
 			"-webkit-font-smoothing": "antialiased",
 			"-moz-osx-font-smoothing": "grayscale",
-
-			// "align-items": "center",
-			// "background-color": "rgba(120, 120, 120, 0.2)",
-			// "box-shadow": "0px 2px 4px rgba(0, 0, 0, 0.2)",
-			// color: "#eee",
 			"flex-direction": "column",
-			// "font-weight": "400",
-			// left: "0%",
-			// "line-height": "13px",
-			// opacity: "0",
-			// top: "0",
-			// transform: "translate(calc(0px - 50%), 0px)",
 		});
 
 		const titleElement = document.createElement("div");
@@ -181,23 +167,6 @@ export class TooltipElement {
 		this.setElementContent(titleElement, this._options.title);
 		element.appendChild(titleElement);
 
-		// const priceElement = document.createElement("div");
-		// this.applyStyle(priceElement, {
-		//   "font-size": "12px",
-		//   "font-weight": "200",
-		//   "margin-bottom": "2px",
-		// });
-		// this.setElementContent(priceElement, "");
-		// element.appendChild(priceElement);
-
-		// const dateElement = document.createElement("div");
-		// this.setElementContent(dateElement, "");
-		// element.appendChild(dateElement);
-
-		// const timeElement = document.createElement("div");
-		// this.setElementContent(timeElement, "");
-		// element.appendChild(timeElement);
-
 		// For backward compatibility, also keep the old content element
 		const contentElement = document.createElement("div");
 		contentElement.style.display = "none";
@@ -209,9 +178,6 @@ export class TooltipElement {
 
 		this._element = element;
 		this._titleElement = titleElement;
-		// this._priceElement = priceElement;
-		// this._dateElement = dateElement;
-		// this._timeElement = timeElement;
 		this._contentElement = contentElement;
 
 		const chartElement = this._chart.chartElement();
@@ -305,21 +271,9 @@ export class TooltipElement {
 		const tooltipMeasurement = this._element.getBoundingClientRect();
 		this._lastTooltipWidth = tooltipMeasurement.width;
 
-		// Update structured content
 		if (tooltipContentData.title !== undefined && this._titleElement) {
 			this.setElementContent(this._titleElement, tooltipContentData.title);
 		}
-		// if (tooltipContentData.price !== undefined && this._priceElement) {
-		//   this.setElementContent(this._priceElement, tooltipContentData.price);
-		// }
-		// if (tooltipContentData.date !== undefined && this._dateElement) {
-		//   this.setElementContent(this._dateElement, tooltipContentData.date);
-		// }
-		// if (tooltipContentData.time !== undefined && this._timeElement) {
-		//   this.setElementContent(this._timeElement, tooltipContentData.time);
-		// }
-
-		// For backward compatibility, also update the old content element
 		if (this._contentElement && tooltipContentData.content) {
 			this.setElementContent(this._contentElement, tooltipContentData.content);
 		}
@@ -403,9 +357,6 @@ export class TooltipPrimitive implements ISeriesPrimitive<Time> {
 		this._tooltip.updateTooltipContent({
 			content: "",
 			title: this._options.tooltip?.title || "",
-			// price: "",
-			// date: "",
-			// time: "",
 		});
 		this._tooltip.updatePosition({ paneX: 0, paneY: 0, visible: false });
 	}
@@ -432,14 +383,6 @@ export class TooltipPrimitive implements ISeriesPrimitive<Time> {
 		});
 	}
 
-	// private _formatDateAndTime(timestamp?: number): [string, string] {
-	//   if (!timestamp) return ["", ""];
-	//   const date = new Date(timestamp * 1000);
-	//   const dateStr = date.toLocaleDateString();
-	//   const timeStr = date.toLocaleTimeString();
-	//   return [dateStr, timeStr];
-	// }
-
 	private _onMouseMove(param: MouseEventParams) {
 		const chart = this.chart();
 		const series = this.series();
@@ -461,7 +404,6 @@ export class TooltipPrimitive implements ISeriesPrimitive<Time> {
 			return;
 		}
 
-		// Use the map if provided, otherwise use the price extractor
 		let contentData: ITooltipContentData;
 
 		if (this._options.timeToTooltipContentMap) {
@@ -469,28 +411,10 @@ export class TooltipPrimitive implements ISeriesPrimitive<Time> {
 			if (mapData) {
 				contentData = mapData;
 			} else {
-				// Fallback to price extractor
-				// const price = this._options.priceExtractor?.(data) || "";
-				// const [date, time] = this._formatDateAndTime(param.time as number);
-				contentData = {
-					// content: `${date} ${time} - ${price}`,
-					content: "&nbsp;",
-					// price,
-					// date,
-					// time,
-				};
+				contentData = { content: "&nbsp;" };
 			}
 		} else {
-			// Use price extractor
-			// const price = this._options.priceExtractor?.(data) || "";
-			// const [date, time] = this._formatDateAndTime(param.time as number);
-			contentData = {
-				// content: `${date} ${time} - ${price}`,
-				content: "&nbsp;",
-				// price,
-				// date,
-				// time,
-			};
+			contentData = { content: "&nbsp;" };
 		}
 
 		if (this._tooltip) {
